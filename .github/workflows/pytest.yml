@@ -13,6 +13,8 @@ jobs:
     steps:
       - id: checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TESTUSER_TOKEN }}
       - id: set-matrix
         run: cat <(echo -n "::set-output name=matrix::") <(jq -c <mod-sets.json)
   run_tests:
@@ -25,6 +27,8 @@ jobs:
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TESTUSER_TOKEN }}
       - name: "Checkout stdlib"
         uses: actions/checkout@v2
         with:
@@ -152,4 +156,3 @@ jobs:
           token: ${{ secrets.TESTUSER_TOKEN }}
       - name: "TEST: Load Factorio"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
-        
