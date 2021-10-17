@@ -1,5 +1,5 @@
 ---
-name: Docker Build & Push
+name: Lint Code
 
 on:
   push:

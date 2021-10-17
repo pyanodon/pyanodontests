@@ -1,0 +1,124 @@
+{
+    "include": [
+        {
+            "name": "PyCoal",
+            "pycoalprocessing": true
+        },
+        {
+            "name": "PyInd",
+            "pyindustry": true
+        },
+        {
+            "name": "PyCoal, PyInd",
+            "pycoalprocessing": true,
+            "pyindustry": true
+        },
+        {
+            "name": "PyFE",
+            "pycoalprocessing": true,
+            "pyfusionenergy": true
+        },
+        {
+            "name": "PyFE, PyInd",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true
+        },
+        {
+            "name": "PyHT",
+            "pycoalprocessing": true,
+            "pyfusionenergy": true,
+            "pyhightech": true
+        },
+        {
+            "name": "PyHT, PyInd",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyhightech": true
+        },
+        {
+            "name": "PyRO",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyrawores": true
+        },
+        {
+            "name": "PyRO, PyFE",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyrawores": true
+        },
+        {
+            "name": "PyRO, PyHT",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyhightech": true,
+            "pyrawores": true
+        },
+        {
+            "name": "PyPH",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pypetroleumhandling": true
+        },
+        {
+            "name": "PyPH, PyHT",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyhightech": true,
+            "pypetroleumhandling": true
+        },
+        {
+            "name": "PyPH, PyRO",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyrawores": true,
+            "pypetroleumhandling": true
+        },
+        {
+            "name": "PyPH, PyRO, PyHT",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyhightech": true,
+            "pyrawores": true,
+            "pypetroleumhandling": true
+        },
+        {
+            "name": "PyAl",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyrawores": true,
+            "pypetroleumhandling": true,
+            "pyalienlife": true
+        },
+        {
+            "name": "PyAl, PyHT",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyhightech": true,
+            "pyrawores": true,
+            "pypetroleumhandling": true,
+            "pyalienlife": true
+        },
+        {
+            "name": "PyAE",
+            "pycoalprocessing": true,
+            "pyindustry": true,
+            "pyfusionenergy": true,
+            "pyhightech": true,
+            "pyrawores": true,
+            "pypetroleumhandling": true,
+            "pyalienlife": true,
+            "pyalternativeenergy": true
+        }
+    ]
+}
