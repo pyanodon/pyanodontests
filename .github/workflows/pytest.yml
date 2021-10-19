@@ -2,6 +2,13 @@ name: Pyanodon Tests
 
 on:
   workflow_call:
+    inputs:
+      repository:
+        type: string
+        required: false
+      ref:
+        type: string
+        required: false
     secrets:
       token:
         required: true
