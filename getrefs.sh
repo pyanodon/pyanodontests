@@ -29,4 +29,4 @@ echo -n "::set-output name=matrix::"
     jq -s '.' 
 } | 
 jq -s '.[1] as $modrefs | .[0][] | reduce $modrefs[] as $refs (. ; if has($refs.name) then .[$refs.name] |= $refs.ref else . end)' |
-jq -sc '{include: [.]}'
+jq -sc '{include: .}'
