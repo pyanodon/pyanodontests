@@ -33,7 +33,7 @@ jobs:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.token }}
       - id: set-matrix
-        run: getrefs.sh
+        run: ./getrefs.sh
   run_tests:
     name: ${{ matrix.name }}
     needs: genereate_matrix
