@@ -2,7 +2,8 @@
     "include": [
         {
             "name": "PyCoal",
-            "pycoalprocessing": true
+            "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true
         },
         {
             "name": "PyInd",
@@ -11,114 +12,173 @@
         {
             "name": "PyCoal, PyInd",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true
         },
         {
             "name": "PyFE",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyfusionenergy": true
         },
         {
             "name": "PyFE, PyInd",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
-            "pyfusionenergy": true
+            "pyfusionenergy": true,
+            "pyfusionenergygraphics": true
         },
         {
             "name": "PyHT",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyfusionenergy": true,
-            "pyhightech": true
+            "pyfusionenergygraphics": true,
+            "pyhightech": true,
+            "pyhightechgraphics": true
         },
         {
             "name": "PyHT, PyInd",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
-            "pyhightech": true
+            "pyfusionenergygraphics": true,
+            "pyhightech": true,
+            "pyhightechgraphics": true
         },
         {
             "name": "PyRO",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
-            "pyrawores": true
+            "pyrawores": true,
+            "pyraworesgraphics": true
         },
         {
             "name": "PyRO, PyFE",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
-            "pyrawores": true
+            "pyfusionenergygraphics": true,
+            "pyrawores": true,
+            "pyraworesgraphics": true
         },
         {
             "name": "PyRO, PyHT",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyhightech": true,
-            "pyrawores": true
+            "pyhightechgraphics": true,
+            "pyrawores": true,
+            "pyraworesgraphics": true
         },
         {
             "name": "PyPH",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
-            "pypetroleumhandling": true
+            "pyfusionenergygraphics": true,
+            "pypetroleumhandling": true,
+            "pypetroleumhandlinggraphics": true
         },
         {
             "name": "PyPH, PyHT",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyhightech": true,
-            "pypetroleumhandling": true
+            "pyhightechgraphics": true,
+            "pypetroleumhandling": true,
+            "pypetroleumhandlinggraphics": true
         },
         {
             "name": "PyPH, PyRO",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyrawores": true,
-            "pypetroleumhandling": true
+            "pyraworesgraphics": true,
+            "pypetroleumhandling": true,
+            "pypetroleumhandlinggraphics": true
         },
         {
             "name": "PyPH, PyRO, PyHT",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyhightech": true,
+            "pyhightechgraphics": true,
             "pyrawores": true,
-            "pypetroleumhandling": true
+            "pyraworesgraphics": true,
+            "pypetroleumhandling": true,
+            "pypetroleumhandlinggraphics": true
         },
         {
             "name": "PyAl",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyrawores": true,
+            "pyraworesgraphics": true,
             "pypetroleumhandling": true,
-            "pyalienlife": true
+            "pypetroleumhandlinggraphics": true,
+            "pyalienlife": true,
+            "pyalienlifegraphics1": true,
+            "pyalienlifegraphics2": true,
+            "pyalienlifegraphics3": true
         },
         {
             "name": "PyAl, PyHT",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyhightech": true,
+            "pyhightechgraphics": true,
             "pyrawores": true,
+            "pyraworesgraphics": true,
             "pypetroleumhandling": true,
-            "pyalienlife": true
+            "pypetroleumhandlinggraphics": true,
+            "pyalienlife": true,
+            "pyalienlifegraphics1": true,
+            "pyalienlifegraphics2": true,
+            "pyalienlifegraphics3": true
         },
         {
             "name": "PyAE",
             "pycoalprocessing": true,
+            "pycoalprocessinggraphics": true,
             "pyindustry": true,
             "pyfusionenergy": true,
+            "pyfusionenergygraphics": true,
             "pyhightech": true,
+            "pyhightechgraphics": true,
             "pyrawores": true,
+            "pyraworesgraphics": true,
             "pypetroleumhandling": true,
+            "pypetroleumhandlinggraphics": true,
             "pyalienlife": true,
-            "pyalternativeenergy": true
+            "pyalienlifegraphics1": true,
+            "pyalienlifegraphics2": true,
+            "pyalienlifegraphics3": true,
+            "pyalternativeenergy": true,
+            "pyalternativeenergygraphics": true
         }
     ]
 }

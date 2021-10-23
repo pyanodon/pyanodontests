@@ -6,12 +6,19 @@ on:
       repository:
         type: string
         required: false
+        default: ""
       ref:
         type: string
         required: false
+        default: ""
     secrets:
       token:
         required: true
+
+env:
+  GITHUB_TOKEN: ${{ secrets.token }}
+  EVENT_REPOSITORY: ${{ inputs.repository }}
+  EVENT_REF: ${{ inputs.ref }}
 
 jobs:
   genereate_matrix:
@@ -26,14 +33,14 @@ jobs:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.token }}
       - id: set-matrix
-        run: cat <(echo -n "::set-output name=matrix::") <(jq -c <mod-sets.json)
+        run: getrefs.sh
   run_tests:
     name: ${{ matrix.name }}
     needs: genereate_matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJSON(needs.genereate_matrix.outputs.matrix)}}
+      matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v2
@@ -52,13 +59,15 @@ jobs:
         with:
           repository: "pyanodon/pycoalprocessing"
           path: "factorio/mods/pycoalprocessing"
+          ref: ${{ matrix.pycoalprocessing }}
           token: ${{ secrets.token }}
       - name: "Checkout pycoalprocessinggraphics"
-        if: ${{ matrix.pycoalprocessing }}
+        if: ${{ matrix.pycoalprocessinggraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pycoalprocessinggraphics"
           path: "factorio/mods/pycoalprocessinggraphics"
+          ref: ${{ matrix.pycoalprocessinggraphics }}
           token: ${{ secrets.token }}
       - name: "Checkout pyindustry"
         if: ${{ matrix.pyindustry }}
@@ -66,6 +75,7 @@ jobs:
         with:
           repository: "pyanodon/pyindustry"
           path: "factorio/mods/pyindustry"
+          ref: ${{ matrix.pyindustry }}
           token: ${{ secrets.token }}
       - name: "Checkout pyfusionenergy"
         if: ${{ matrix.pyfusionenergy }}
@@ -73,13 +83,15 @@ jobs:
         with:
           repository: "pyanodon/pyfusionenergy"
           path: "factorio/mods/pyfusionenergy"
+          ref: ${{ matrix.pyfusionenergy }}
           token: ${{ secrets.token }}
       - name: "Checkout pyfusionenergygraphics"
-        if: ${{ matrix.pyfusionenergy }}
+        if: ${{ matrix.pyfusionenergygraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyfusionenergygraphics"
           path: "factorio/mods/pyfusionenergygraphics"
+          ref: ${{ matrix.pyfusionenergygraphics }}
           token: ${{ secrets.token }}
       - name: "Checkout pyhightech"
         if: ${{ matrix.pyhightech }}
@@ -87,13 +99,15 @@ jobs:
         with:
           repository: "pyanodon/pyhightech"
           path: "factorio/mods/pyhightech"
+          ref: ${{ matrix.pyhightech }}
           token: ${{ secrets.token }}
       - name: "Checkout pyhightechgraphics"
-        if: ${{ matrix.pyhightech }}
+        if: ${{ matrix.pyhightechgraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyhightechgraphics"
           path: "factorio/mods/pyhightechgraphics"
+          ref: ${{ matrix.pyhightechgraphics }}
           token: ${{ secrets.token }}
       - name: "Checkout pyrawores"
         if: ${{ matrix.pyrawores }}
@@ -101,13 +115,15 @@ jobs:
         with:
           repository: "pyanodon/pyrawores"
           path: "factorio/mods/pyrawores"
+          ref: ${{ matrix.pyrawores }}
           token: ${{ secrets.token }}
       - name: "Checkout pyraworesgraphics"
-        if: ${{ matrix.pyrawores }}
+        if: ${{ matrix.pyraworesgraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyraworesgraphics"
           path: "factorio/mods/pyraworesgraphics"
+          ref: ${{ matrix.pyraworesgraphics }}
           token: ${{ secrets.token }}
       - name: "Checkout pypetroleumhandling"
         if: ${{ matrix.pypetroleumhandling }}
@@ -115,13 +131,15 @@ jobs:
         with:
           repository: "pyanodon/pypetroleumhandling"
           path: "factorio/mods/pypetroleumhandling"
+          ref: ${{ matrix.pypetroleumhandling }}
           token: ${{ secrets.token }}
       - name: "Checkout pypetroleumhandlinggraphics"
-        if: ${{ matrix.pypetroleumhandling }}
+        if: ${{ matrix.pypetroleumhandlinggraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pypetroleumhandlinggraphics"
           path: "factorio/mods/pypetroleumhandlinggraphics"
+          ref: ${{ matrix.pypetroleumhandlinggraphics }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalienlife"
         if: ${{ matrix.pyalienlife }}
@@ -129,27 +147,31 @@ jobs:
         with:
           repository: "pyanodon/pyalienlife"
           path: "factorio/mods/pyalienlife"
+          ref: ${{ matrix.pyalienlife }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalienlifegraphics1"
-        if: ${{ matrix.pyalienlife }}
+        if: ${{ matrix.pyalienlifegraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyalienlifegraphics1"
           path: "factorio/mods/pyalienlifegraphics"   #Mod name doesn't have 1 at the end
+          ref: ${{ matrix.pyalienlifegraphics1 }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalienlifegraphics2"
-        if: ${{ matrix.pyalienlife }}
+        if: ${{ matrix.pyalienlifegraphics2 }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyalienlifegraphics2"
           path: "factorio/mods/pyalienlifegraphics2"   
+          ref: ${{ matrix.pyalienlifegraphics2 }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalienlifegraphics3"
-        if: ${{ matrix.pyalienlife }}
+        if: ${{ matrix.pyalienlifegraphics3 }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyalienlifegraphics3"
           path: "factorio/mods/pyalienlifegraphics3"   
+          ref: ${{ matrix.pyalienlifegraphics3 }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalternativeenergy"
         if: ${{ matrix.pyalternativeenergy }}
@@ -157,13 +179,15 @@ jobs:
         with:
           repository: "pyanodon/pyalternativeenergy"
           path: "factorio/mods/pyalternativeenergy"   
+          ref: ${{ matrix.pyalternativeenergy }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalternativeenergygraphics"
-        if: ${{ matrix.pyalternativeenergy }}
+        if: ${{ matrix.pyalternativeenergygraphics }}
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyalternativeenergygraphics"
           path: "factorio/mods/pyalternativeenergygraphics"   
+          ref: ${{ matrix.pyalternativeenergygraphics }}
           token: ${{ secrets.token }}
       - name: "TEST: Load Factorio"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main

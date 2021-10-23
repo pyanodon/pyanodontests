@@ -1,0 +1,87 @@
+[
+    {
+        "name": "pycoalprocessing",
+        "repository": "pyanodon/pycoalprocessing",
+        "url": "https://github.com/pyanodon/pycoalprocessing"
+    },
+    {
+        "name": "pycoalprocessinggraphics",
+        "repository": "pyanodon/pycoalprocessinggraphics",
+        "url": "https://github.com/pyanodon/pycoalprocessinggraphics"
+    },
+    {
+        "name": "pyindustry",
+        "repository": "pyanodon/pyindustry",
+        "url": "https://github.com/pyanodon/pyindustry"
+    },
+    {
+        "name": "pyfusionenergy",
+        "repository": "pyanodon/pyfusionenergy",
+        "url": "https://github.com/pyanodon/pyfusionenergy"
+    },
+    {
+        "name": "pyfusionenergygraphics",
+        "repository": "pyanodon/pyfusionenergygraphics",
+        "url": "https://github.com/pyanodon/pyfusionenergygraphics"
+    },
+    {
+        "name": "pyhightech",
+        "repository": "pyanodon/pyhightech",
+        "url": "https://github.com/pyanodon/pyhightech"
+    },
+    {
+        "name": "pyhightechgraphics",
+        "repository": "pyanodon/pyhightechgraphics",
+        "url": "https://github.com/pyanodon/pyhightechgraphics"
+    },
+    {
+        "name": "pyrawores",
+        "repository": "pyanodon/pyrawores",
+        "url": "https://github.com/pyanodon/pyrawores"
+    },
+    {
+        "name": "pyraworesgraphics",
+        "repository": "pyanodon/pyraworesgraphics",
+        "url": "https://github.com/pyanodon/pyraworesgraphics"
+    },
+    {
+        "name": "pypetroleumhandling",
+        "repository": "pyanodon/pypetroleumhandling",
+        "url": "https://github.com/pyanodon/pypetroleumhandling"
+    },
+    {
+        "name": "pypetroleumhandlinggraphics",
+        "repository": "pyanodon/pypetroleumhandlinggraphics",
+        "url": "https://github.com/pyanodon/pypetroleumhandlinggraphics"
+    },
+    {
+        "name": "pyalienlife",
+        "repository": "pyanodon/pyalienlife",
+        "url": "https://github.com/pyanodon/pyalienlife"
+    },
+    {
+        "name": "pyalienlifegraphics",
+        "repository": "pyanodon/pyalienlifegraphics1",
+        "url": "https://github.com/pyanodon/pyalienlifegraphics1"
+    },
+    {
+        "name": "pyalienlifegraphics2",
+        "repository": "pyanodon/pyalienlifegraphics2",
+        "url": "https://github.com/pyanodon/pyalienlifegraphics2"
+    },
+    {
+        "name": "pyalienlifegraphics3",
+        "repository": "pyanodon/pyalienlifegraphics3",
+        "url": "https://github.com/pyanodon/pyalienlifegraphics3"
+    },
+    {
+        "name": "pyalternativeenergy",
+        "repository": "pyanodon/pyalternativeenergy",
+        "url": "https://github.com/pyanodon/pyalternativeenergy"
+    },
+    {
+        "name": "pyalternativeenergygraphics",
+        "repository": "pyanodon/pyalternativeenergygraphics",
+        "url": "https://github.com/pyanodon/pyalternativeenergygraphics"
+    }
+]
