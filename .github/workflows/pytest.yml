@@ -32,6 +32,7 @@ jobs:
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.token }}
+          ref: v1
       - id: set-matrix
         run: ./getrefs.sh
   run_tests:
@@ -47,6 +48,7 @@ jobs:
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.token }}
+          ref: v1
       - name: "Checkout stdlib"
         uses: actions/checkout@v2
         with:
