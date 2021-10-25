@@ -155,7 +155,7 @@ jobs:
         with:
           repository: "pyanodon/pyalienlifegraphics1"
           path: "factorio/mods/pyalienlifegraphics"   #Mod name doesn't have 1 at the end
-          ref: ${{ matrix.pyalienlifegraphics1 }}
+          ref: ${{ matrix.pyalienlifegraphics }}
           token: ${{ secrets.token }}
       - name: "Checkout pyalienlifegraphics2"
         if: ${{ matrix.pyalienlifegraphics2 }}
