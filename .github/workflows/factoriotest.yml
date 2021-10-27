@@ -1,0 +1,15 @@
+name: Factorio tests
+
+on:
+  schedule:
+    - cron: 0 3 * * *
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@v1
+    secrets:
+      token: ${{ secrets.TESTUSER_TOKEN }}
