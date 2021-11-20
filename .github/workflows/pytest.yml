@@ -74,7 +74,7 @@ jobs:
       - name: "Checkout mods"
         uses: ShadowGlass0/multi-checkout@v2
         with:
-          repositories: ${{ fromJSON(matrix.mods) }}
+          repositories: ${{ toJSON(matrix.mods) }}
           token: ${{ secrets.token }}
       - name: "Move mods"
         run: ./movemods.sh
