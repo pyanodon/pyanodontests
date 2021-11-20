@@ -5,7 +5,7 @@ if [[ -n ${EVENT_REPOSITORY} ]]; then mod_name=$(jq '.[] | if .repository==env.E
 
 echo -n "::set-output name=matrix::"
 { 
-    if [[ -n $mod_name ]]; then
+    if [ ${mod_name:+1} ]; then
         jq ".include[] | if .mods | any(.==$mod_name) then . else empty end" mod-sets.json | jq -sc '.'
     else
         jq -c '.include' mod-sets.json
