@@ -76,6 +76,8 @@ jobs:
         with:
           repositories: ${{ toJSON(matrix.mods) }}
           token: ${{ secrets.token }}
+      - run: pwd
+      - run: ls -lR
       - name: "Move mods"
         run: ./movemods.sh
       - name: "TEST: Load Factorio"
