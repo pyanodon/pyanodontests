@@ -34,8 +34,8 @@ jobs:
     needs: lint
     uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@main
     with:
-      repository: pyalienlife
-      ref: master
+      repository: "pyalienlife"
+      ref: "master"
       test_ref: main
     secrets:
       token: ${{ secrets.TESTUSER_TOKEN }}
