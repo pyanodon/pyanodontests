@@ -24,8 +24,8 @@ jobs:
   test:
     name: Test
     needs: lint
-    uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@${{ github.ref }}
+    uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@${{ github.sha }}
     with:
-      test_ref: ${{ github.ref }}
+      test_ref: ${{ github.sha }}
     secrets:
       token: ${{ secrets.TESTUSER_TOKEN }}
