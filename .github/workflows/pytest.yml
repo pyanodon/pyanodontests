@@ -5,18 +5,22 @@ on:
     inputs:
       repository:
         type: string
+        description: "Caller repository"
         required: false
         default: ""
       ref:
         type: string
+        description: "Ref/sha to use for the caller repository"
         required: false
         default: ""
       test_ref:
         type: string
+        description: "Ref/sha to use for pyanodontest"
         required: false
         default: "v1"
     secrets:
       token:
+        description: "Token for pyanodontestuser"
         required: true
 
 env:
