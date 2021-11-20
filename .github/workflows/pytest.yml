@@ -71,133 +71,22 @@ jobs:
           path: "factorio/mods/pycoalprocessing"
           ref: ${{ matrix.pycoalprocessing }}
           token: ${{ secrets.token }}
-      - name: "Checkout pycoalprocessinggraphics"
-        if: ${{ matrix.pycoalprocessinggraphics }}
-        uses: actions/checkout@v2
+      - name: "Checkout mods"
+        uses: ShadowGlass0/multi-checkout@v2
         with:
-          repository: "pyanodon/pycoalprocessinggraphics"
-          path: "factorio/mods/pycoalprocessinggraphics"
-          ref: ${{ matrix.pycoalprocessinggraphics }}
+          repositories: ${{ matrix.mods }}
           token: ${{ secrets.token }}
-      - name: "Checkout pyindustry"
-        if: ${{ matrix.pyindustry }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyindustry"
-          path: "factorio/mods/pyindustry"
-          ref: ${{ matrix.pyindustry }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyfusionenergy"
-        if: ${{ matrix.pyfusionenergy }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyfusionenergy"
-          path: "factorio/mods/pyfusionenergy"
-          ref: ${{ matrix.pyfusionenergy }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyfusionenergygraphics"
-        if: ${{ matrix.pyfusionenergygraphics }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyfusionenergygraphics"
-          path: "factorio/mods/pyfusionenergygraphics"
-          ref: ${{ matrix.pyfusionenergygraphics }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyhightech"
-        if: ${{ matrix.pyhightech }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyhightech"
-          path: "factorio/mods/pyhightech"
-          ref: ${{ matrix.pyhightech }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyhightechgraphics"
-        if: ${{ matrix.pyhightechgraphics }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyhightechgraphics"
-          path: "factorio/mods/pyhightechgraphics"
-          ref: ${{ matrix.pyhightechgraphics }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyrawores"
-        if: ${{ matrix.pyrawores }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyrawores"
-          path: "factorio/mods/pyrawores"
-          ref: ${{ matrix.pyrawores }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyraworesgraphics"
-        if: ${{ matrix.pyraworesgraphics }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyraworesgraphics"
-          path: "factorio/mods/pyraworesgraphics"
-          ref: ${{ matrix.pyraworesgraphics }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pypetroleumhandling"
-        if: ${{ matrix.pypetroleumhandling }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pypetroleumhandling"
-          path: "factorio/mods/pypetroleumhandling"
-          ref: ${{ matrix.pypetroleumhandling }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pypetroleumhandlinggraphics"
-        if: ${{ matrix.pypetroleumhandlinggraphics }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pypetroleumhandlinggraphics"
-          path: "factorio/mods/pypetroleumhandlinggraphics"
-          ref: ${{ matrix.pypetroleumhandlinggraphics }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyalienlife"
-        if: ${{ matrix.pyalienlife }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyalienlife"
-          path: "factorio/mods/pyalienlife"
-          ref: ${{ matrix.pyalienlife }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyalienlifegraphics1"
-        if: ${{ matrix.pyalienlifegraphics }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyalienlifegraphics1"
-          path: "factorio/mods/pyalienlifegraphics"   #Mod name doesn't have 1 at the end
-          ref: ${{ matrix.pyalienlifegraphics }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyalienlifegraphics2"
-        if: ${{ matrix.pyalienlifegraphics2 }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyalienlifegraphics2"
-          path: "factorio/mods/pyalienlifegraphics2"   
-          ref: ${{ matrix.pyalienlifegraphics2 }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyalienlifegraphics3"
-        if: ${{ matrix.pyalienlifegraphics3 }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyalienlifegraphics3"
-          path: "factorio/mods/pyalienlifegraphics3"   
-          ref: ${{ matrix.pyalienlifegraphics3 }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyalternativeenergy"
-        if: ${{ matrix.pyalternativeenergy }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyalternativeenergy"
-          path: "factorio/mods/pyalternativeenergy"   
-          ref: ${{ matrix.pyalternativeenergy }}
-          token: ${{ secrets.token }}
-      - name: "Checkout pyalternativeenergygraphics"
-        if: ${{ matrix.pyalternativeenergygraphics }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pyalternativeenergygraphics"
-          path: "factorio/mods/pyalternativeenergygraphics"   
-          ref: ${{ matrix.pyalternativeenergygraphics }}
-          token: ${{ secrets.token }}
+      - name: "Move mods"
+        run: |
+          jq -c '.[]' mods.json |
+          while read -r i; do
+            mod_repo=$(echo "$i" | jq -cr '.repository')
+            mod_name=$(echo "$i" | jq -cr '.name')
+            if [[ -d $mod_repo ]]; then
+              mkdir ./factorio/mods/$mod_name
+              mv $mod_repo/* ./factorio/mods/$mod_name
+              rm -r $mod_repo
+            fi
+          done
       - name: "TEST: Load Factorio"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main

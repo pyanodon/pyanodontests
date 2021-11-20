@@ -6,7 +6,7 @@ if [[ -n ${EVENT_REPOSITORY} ]]; then mod_name=$(jq '.[] | if .repository==env.E
 echo -n "::set-output name=matrix::"
 { 
     if [[ -v mod_name ]]; then
-        jq ".include[] | if has($mod_name) then . else empty end " mod-sets.json | jq -sc '.'
+        jq ".include[] | if .mods | any(.==$mod_name) then . else empty end" mod-sets.json | jq -sc '.'
     else
         jq -c '.include' mod-sets.json
     fi
@@ -24,9 +24,9 @@ echo -n "::set-output name=matrix::"
         fi
         
         echo "$i" "$(echo "$ref" | jq -R '{ref: .}')" |
-        jq -s '{name: .[0].name, ref:.[1].ref}'
+        jq -s '{name: .[0].name, repository: .[0].repository, ref:.[1].ref}'
     done |
     jq -s '.' 
 } | 
-jq -s '.[1] as $modrefs | .[0][] | reduce $modrefs[] as $refs (. ; if has($refs.name) then .[$refs.name] |= $refs.ref else . end)' |
-jq -sc '{include: .}'
+jq -s '.[1] as $modrefs | .[0][].mods |= reduce $modrefs[] as $refs (. ; map_values(if .==$refs.name then $refs.repository + "@" + $refs.ref else . end))' |
+jq -c '{include: .[0]}'

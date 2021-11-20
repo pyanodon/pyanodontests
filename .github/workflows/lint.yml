@@ -21,4 +21,11 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+  test:
+    name: Test
+    needs: lint
+    uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@${{ github.ref }}
+    with:
+      test_ref: ${{ github.ref }}
+    secrets:
+      token: ${{ secrets.TESTUSER_TOKEN }}
