@@ -11,6 +11,10 @@ on:
         type: string
         required: false
         default: ""
+      test_ref:
+        type: string
+        required: false
+        default: "v1"
     secrets:
       token:
         required: true
@@ -32,7 +36,7 @@ jobs:
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.token }}
-          ref: v1
+          ref: ${{ inputs.test_ref }}
       - id: set-matrix
         run: ./getrefs.sh
   run_tests:
@@ -48,7 +52,7 @@ jobs:
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.token }}
-          ref: v1
+          ref: ${{ inputs.test_ref }}
       - name: "Checkout stdlib"
         uses: actions/checkout@v2
         with:
