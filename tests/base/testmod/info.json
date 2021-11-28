@@ -1,0 +1,19 @@
+{
+    "name": "testmod",
+    "version": "1.0.0",
+    "factorio_version": "1.1",
+    "title": "Pyanodon test base",
+    "author": "ShadowGlass",
+    "description": "Base test of loading mods into Factorio",
+    "dependencies": [
+        "base >= 1.1", 
+        "? pycoalprocessing", 
+        "? pyindustry", 
+        "? pyfusionenergy", 
+        "? pyhightech", 
+        "? pyrawores", 
+        "? pypetroleumhandling", 
+        "? pyalienlife", 
+        "? pyalternativeenergy"
+    ]
+}

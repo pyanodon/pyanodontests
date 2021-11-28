@@ -63,14 +63,6 @@ jobs:
           repository: "Afforess/Factorio-Stdlib"
           ref: v1.4.6
           path: "factorio/mods/stdlib"
-      - name: "Checkout pycoalprocessing"
-        if: ${{ matrix.pycoalprocessing }}
-        uses: actions/checkout@v2
-        with:
-          repository: "pyanodon/pycoalprocessing"
-          path: "factorio/mods/pycoalprocessing"
-          ref: ${{ matrix.pycoalprocessing }}
-          token: ${{ secrets.token }}
       - name: "Checkout mods"
         uses: ShadowGlass0/multi-checkout@v2
         with:
