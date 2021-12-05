@@ -1,7 +1,6 @@
 local table = require('__stdlib__/stdlib/utils/table')
 
-if not pytest then pytest = {} end
-
+local pytest = {}
 
 local start_tech_name = '__START__'
 local fuel_fluid = 'fluid'
@@ -16,8 +15,6 @@ local ignored_crafting = {'py-venting', 'py-runoff', 'py-incineration', 'blackho
 local starting_entities = {'crash-site-assembling-machine-1-repaired', 'crash-site-lab-repaired'}
 local added_recipes = {}
 local custom_recipes= {}
-
-local player= {}
 
 
 function pytest.start_log(msg)
