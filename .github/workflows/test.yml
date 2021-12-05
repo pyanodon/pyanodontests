@@ -7,7 +7,6 @@ on:
 jobs:
   test1:
     name: Test Full
-    needs: lint
     uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@main
     with:
       test_ref: main
@@ -15,7 +14,6 @@ jobs:
       token: ${{ secrets.TESTUSER_TOKEN }}
   test2:
     name: Test PyAl
-    needs: lint
     uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@main
     with:
       repository: "pyanodon/pyalienlife"
