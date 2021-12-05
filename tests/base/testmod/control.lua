@@ -1,3 +1,3 @@
 script.on_init(function(event)
--- Test code here	
+-- Test code here
 end)
