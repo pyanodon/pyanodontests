@@ -99,8 +99,10 @@ jobs:
           token: ${{ secrets.token }}
       - name: "Move mods"
         run: ./movemods.sh
-      - run: ./tests/techtree/pre-process.sh
+      - name: "Prepare test"
+        run: ./tests/techtree/pre-process.sh
       - name: "TEST: Tech Tree Verification"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
-      - run: ./tests/techtree/post-process.sh
+      - name: "Test Results"
+        run: ./tests/techtree/post-process.sh
 
