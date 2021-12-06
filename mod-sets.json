@@ -8,12 +8,6 @@
             ]
         },
         {
-            "name": "PyInd",
-            "mods": [
-                "pyindustry"
-            ]
-        },
-        {
             "name": "PyCoal, PyInd",
             "mods": [
                 "pycoalprocessing", 
