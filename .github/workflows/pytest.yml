@@ -44,7 +44,7 @@ jobs:
       - id: set-matrix
         run: ./getrefs.sh
   load_test:
-    name: ${{ format("Load {0}", matrix.name) }}
+    name: ${{ format('Load {0}', matrix.name) }}
     needs: genereate_matrix
     runs-on: ubuntu-latest
     strategy:
@@ -73,7 +73,7 @@ jobs:
       - name: "TEST: Load Factorio"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
   techtree_test:
-    name: ${{ format("TechTree {0}", matrix.name) }}
+    name: ${{ format('TechTree {0}', matrix.name) }}
     needs: load_test
     runs-on: ubuntu-latest
     strategy:
