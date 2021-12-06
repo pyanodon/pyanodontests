@@ -1,3 +1,5 @@
+name: Set semver tags
+
 on:
   push:
     tags:
