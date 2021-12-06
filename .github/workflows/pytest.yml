@@ -74,7 +74,7 @@ jobs:
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
   techtree_test:
     name: ${{ format('TechTree {0}', matrix.name) }}
-    needs: load_test
+    needs: [genereate_matrix, load_test]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
