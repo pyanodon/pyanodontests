@@ -257,7 +257,7 @@ function pytest.add_entity(tech, entity_name)
 			end
 		end
 
-		if entity.fixed_recipe then
+		if entity.fixed_recipe and not tech.unlocked_recipes[entity.fixed_recipe] then
 			added_recipes[entity.fixed_recipe] = true
 		end
 
@@ -335,7 +335,7 @@ function pytest.add_entity(tech, entity_name)
 		if entity.burner_prototype and not table.is_empty(entity.burner_prototype.fuel_categories or {}) then
 			for _, i in pairs(tech.unlocked_items) do
 				if i.fuel_category and entity.burner_prototype.fuel_categories[i.fuel_category] then
-					result = pytest.add_burnt_result(tech, i) and result
+					pytest.add_burnt_result(tech, i)
 				end
 			end
 		end
@@ -476,9 +476,7 @@ function pytest.ignore_recipe(recipe)
 end
 
 
-function pytest.process_recipe(tech, recipe_name, write_errors)
-	local recipe = game.recipe_prototypes[recipe_name] or custom_recipes[recipe_name]
-
+function pytest.process_recipe(tech, recipe, write_errors)
 	local result = true
 	local ingredient_count = 0
 	local fluidboxes_in = 0
@@ -540,7 +538,7 @@ function pytest.process_recipe(tech, recipe_name, write_errors)
 	end
 
 	if not tech.skipped_recipes[recipe.name] then
-		for _, p in pairs(recipe.products) do
+		for _, p in pairs(recipe.products or {}) do
 			if p.type == 'fluid' then
 				fluidboxes_out = fluidboxes_out + 1
 			end
@@ -682,11 +680,16 @@ function pytest.verify_tech(tech)
 		added_recipes = {}
 
 		for r, _ in pairs(tech.recipes) do
+			local recipe = game.recipe_prototypes[r] or custom_recipes[r]
 			if tech.unlocked_recipes[r] then
-				remove_recipes[r] = true
+				if pytest.ignore_recipe(recipe) then
+					remove_recipes[r] = true
+				else
+					pytest.log("ERROR: Recipe is already unlocked: " .. r)
+				end
 			else
 				--pytest.log('CALL PROCESS_RECIPE ' .. r)
-				local res = pytest.process_recipe(tech, r, false)
+				local res = pytest.process_recipe(tech, recipe, false)
 				--pytest.log('CALL PROCESS_RECIPE ' .. r .. ' result: ' .. (res and 'true' or 'false'))
 				if res then
 					remove_recipes[r] = true
@@ -708,7 +711,8 @@ function pytest.verify_tech(tech)
 
 	-- Any leftover recipes have failed. Loop through again to write the errors
 	for r, _ in pairs(tech.recipes) do
-		result = pytest.process_recipe(tech, r, true) and result
+		local recipe = game.recipe_prototypes[r] or custom_recipes[r]
+		result = pytest.process_recipe(tech, recipe, true) and result
 	end
 
 	return result

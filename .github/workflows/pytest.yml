@@ -44,7 +44,7 @@ jobs:
       - id: set-matrix
         run: ./getrefs.sh
   load_test:
-    name: ${{ format('Load {0}', matrix.name) }}
+    name: ${{ format('CrashTest {0}', matrix.name) }}
     needs: genereate_matrix
     runs-on: ubuntu-latest
     strategy:
