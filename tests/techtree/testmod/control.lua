@@ -14,8 +14,8 @@ local tech_tab = {}
 local ignored_crafting = {'py-venting', 'py-runoff', 'py-incineration', 'blackhole-energy', 'compost', crafting_launch}
 local starting_entities = {'crash-site-assembling-machine-1-repaired', 'crash-site-lab-repaired'}
 local added_recipes = {}
-local custom_recipes= {}
-
+local custom_recipes = {}
+local ignored_techs = {'placeholder'}
 
 function pytest.start_log(msg)
 	game.write_file('tech_tree_log.txt', msg .. '\n')
@@ -69,7 +69,7 @@ function pytest.prepare_tech_data()
 	for _, tech in pairs(game.technology_prototypes) do
 		local t = pytest.tech(tech.name)
 
-		if tech.enabled then
+		if tech.enabled and not table.any(ignored_techs, function (t) return t == tech.name end) then
 			if not tech.prerequisites or table.is_empty(tech.prerequisites) then
 				pytest.add_dependent_tech(start_tech, t)
 			else
@@ -652,7 +652,7 @@ function pytest.verify_tech(tech)
 
 		for sc, _ in pairs(parent_science_packs) do
 			if not tech.required_science_packs[sc] then
-				pytest.log("ERROR: Required science pack not inherited from prerequisites: " .. sc)
+				pytest.log("ERROR: Required science pack " .. sc .. " not inherited from prerequisites: " .. table.concat(table.keys(tech.prerequisites), ', '))
 				result = false
 			end
 		end
