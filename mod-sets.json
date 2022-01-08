@@ -39,17 +39,6 @@
             "mods": [
                 "pycoalprocessing",
                 "pycoalprocessinggraphics",
-                "pyfusionenergy",
-                "pyfusionenergygraphics",
-                "pyhightech",
-                "pyhightechgraphics"
-            ]
-        },
-        {
-            "name": "PyHT, PyInd",
-            "mods": [
-                "pycoalprocessing",
-                "pycoalprocessinggraphics",
                 "pyindustry",
                 "pyfusionenergy",
                 "pyfusionenergygraphics",
