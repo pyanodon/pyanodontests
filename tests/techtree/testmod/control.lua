@@ -343,11 +343,13 @@ function pytest.add_entity(tech, entity_name)
 end
 
 
-function pytest.add_item(tech, item_name, source)
+function pytest.add_item(tech, item_name, source, no_log)
 	local item = game.item_prototypes[item_name]
 
 	if not tech.unlocked_items[item_name] then
-		pytest.log('  - Unlocked item: ' .. item_name .. (source or ''))
+		if not no_log then
+			pytest.log('  - Unlocked item: ' .. item_name .. (source or ''))
+		end
 		tech.unlocked_items[item_name] = item
 
 		if item.place_result then
@@ -590,8 +592,6 @@ end
 
 
 function pytest.verify_tech(tech)
-	pytest.log('TECHNOLOGY: ' .. tech.name)
-
 	local result = true
 
 	if tech.name == start_tech_name then
@@ -672,6 +672,7 @@ function pytest.verify_tech(tech)
 	end
 
 	result = true
+	local logged_recipes = {}
 
 	while result do
 		--pytest.log('START LOOP')
@@ -684,7 +685,8 @@ function pytest.verify_tech(tech)
 			if tech.unlocked_recipes[r] then
 				if pytest.ignore_recipe(recipe) then
 					remove_recipes[r] = true
-				else
+				elseif not logged_recipes[r] then
+					logged_recipes[r] = true
 					pytest.log("ERROR: Recipe is already unlocked: " .. r)
 				end
 			else
@@ -723,8 +725,8 @@ function pytest.merge_parents(tech)
 	for _, p in pairs(tech.prerequisites) do
 		tech.unlocked_entities = table.merge(tech.unlocked_entities, p.unlocked_entities)
 		tech.unlocked_mining = table.merge(tech.unlocked_mining, p.unlocked_mining)
-		tech.unlocked_items = table.merge(tech.unlocked_items, p.unlocked_items)
 		tech.unlocked_fuels = table.merge(tech.unlocked_fuels, p.unlocked_fuels)
+		tech.unlocked_items = table.merge(tech.unlocked_items, p.unlocked_items)
 		tech.recipes = table.merge(tech.recipes, p.skipped_recipes)
 		tech.unlocked_recipes = table.merge(tech.unlocked_recipes, p.unlocked_recipes)
 		tech.unlocked_techs = table.merge(tech.unlocked_techs, p.unlocked_techs)
@@ -738,6 +740,12 @@ function pytest.merge_parents(tech)
 
 		for f, temps in pairs(p.unlocked_fluids) do
 			tech.unlocked_fluids[f] = table.merge(tech.unlocked_fluids[f] or {}, temps)
+		end
+
+		for _, item in pairs(p.unlocked_items) do
+			if item.fuel_category and (item.fuel_value or 0) > 0 then
+				pytest.add_burnt_result(tech, item)
+			end
 		end
 	end
 end
@@ -756,6 +764,8 @@ function pytest.verify_tech_tree()
 		local tech = q.data[q.first]
 		q.data[q.first] = nil
 		q.first = q.first + 1
+
+		pytest.log('TECHNOLOGY: ' .. tech.name)
 
 		pytest.merge_parents(tech)
 		local result = pytest.verify_tech(tech)
