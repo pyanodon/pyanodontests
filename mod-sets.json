@@ -4,7 +4,8 @@
             "name": "PyCoal",
             "mods": [
                 "pycoalprocessing", 
-                "pycoalprocessinggraphics"
+                "pycoalprocessinggraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -12,7 +13,8 @@
             "mods": [
                 "pycoalprocessing", 
                 "pycoalprocessinggraphics", 
-                "pyindustry"
+                "pyindustry",
+                "pypostprocessing"
             ]
         },
         {
@@ -21,7 +23,8 @@
                 "pycoalprocessing", 
                 "pycoalprocessinggraphics", 
                 "pyfusionenergy",
-                "pyfusionenergygraphics"
+                "pyfusionenergygraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -31,7 +34,8 @@
                 "pycoalprocessinggraphics",
                 "pyindustry",
                 "pyfusionenergy",
-                "pyfusionenergygraphics"
+                "pyfusionenergygraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -43,7 +47,8 @@
                 "pyfusionenergy",
                 "pyfusionenergygraphics",
                 "pyhightech",
-                "pyhightechgraphics"
+                "pyhightechgraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -53,7 +58,8 @@
                 "pycoalprocessinggraphics",
                 "pyindustry",
                 "pyrawores",
-                "pyraworesgraphics"
+                "pyraworesgraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -65,7 +71,8 @@
                 "pyfusionenergy",
                 "pyfusionenergygraphics",
                 "pyrawores",
-                "pyraworesgraphics"
+                "pyraworesgraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -79,7 +86,8 @@
                 "pyhightech",
                 "pyhightechgraphics",
                 "pyrawores",
-                "pyraworesgraphics"
+                "pyraworesgraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -91,7 +99,8 @@
                 "pyfusionenergy",
                 "pyfusionenergygraphics",
                 "pypetroleumhandling",
-                "pypetroleumhandlinggraphics"
+                "pypetroleumhandlinggraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -105,7 +114,8 @@
                 "pyhightech",
                 "pyhightechgraphics",
                 "pypetroleumhandling",
-                "pypetroleumhandlinggraphics"
+                "pypetroleumhandlinggraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -119,7 +129,8 @@
                 "pyrawores",
                 "pyraworesgraphics",
                 "pypetroleumhandling",
-                "pypetroleumhandlinggraphics"
+                "pypetroleumhandlinggraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -135,7 +146,8 @@
                 "pyrawores",
                 "pyraworesgraphics",
                 "pypetroleumhandling",
-                "pypetroleumhandlinggraphics"
+                "pypetroleumhandlinggraphics",
+                "pypostprocessing"
             ]
         },
         {
@@ -153,7 +165,8 @@
                 "pyalienlife",
                 "pyalienlifegraphics",
                 "pyalienlifegraphics2",
-                "pyalienlifegraphics3"
+                "pyalienlifegraphics3",
+                "pypostprocessing"
             ]
         },
         {
@@ -173,7 +186,8 @@
                 "pyalienlife",
                 "pyalienlifegraphics",
                 "pyalienlifegraphics2",
-                "pyalienlifegraphics3"
+                "pyalienlifegraphics3",
+                "pypostprocessing"
             ]
         },
         {
@@ -195,7 +209,8 @@
                 "pyalienlifegraphics2",
                 "pyalienlifegraphics3",
                 "pyalternativeenergy",
-                "pyalternativeenergygraphics"
+                "pyalternativeenergygraphics",
+                "pypostprocessing"
             ]
         }
     ]

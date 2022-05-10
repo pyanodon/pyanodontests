@@ -83,5 +83,10 @@
         "name": "pyalternativeenergygraphics",
         "repository": "pyanodon/pyalternativeenergygraphics",
         "url": "https://github.com/pyanodon/pyalternativeenergygraphics"
+    },
+    {
+        "name": "pypostprocessing",
+        "repository": "pyanodon/pypostprocessing",
+        "url": "https://github.com/pyanodon/pypostprocessing"
     }
 ]
