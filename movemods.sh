@@ -12,3 +12,4 @@ while read -r i; do
         rm -r ./"$mod_repo"
     fi
 done
+
