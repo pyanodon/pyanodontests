@@ -747,6 +747,12 @@ function pytest.merge_parents(tech)
 				pytest.add_burnt_result(tech, item)
 			end
 		end
+
+		for _, e in pairs(tech.unlocked_entities) do
+			if e.mineable_properties and e.mineable_properties.required_fluid then
+				pytest.add_mining_results(tech, e)
+			end
+		end
 	end
 end
 
