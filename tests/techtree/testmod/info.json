@@ -15,6 +15,7 @@
         "? pyrawores", 
         "? pypetroleumhandling", 
         "? pyalienlife", 
-        "? pyalternativeenergy"
+        "? pyalternativeenergy",
+        "? pypostprocessing"
     ]
 }
