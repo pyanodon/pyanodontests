@@ -472,7 +472,7 @@ end
 function pytest.ignore_recipe(recipe)
 	local result = table.any(ignored_crafting, function (r) return r == recipe.category end)
 		or recipe.name:find('fill%-.*%-barrel') ~= nil or recipe.name:find('empty%-.*%-barrel') ~= nil
-		or recipe.name:find('fill%-canister%-') ~= nil or recipe.name:find('empty%-canister%-') ~= nil
+		or recipe.name:find('fill%-.*%-canister') ~= nil or recipe.name:find('empty%-.*%-canister') ~= nil
 
 	return result
 end
