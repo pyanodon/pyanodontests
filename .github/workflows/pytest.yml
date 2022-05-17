@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyanodontests"
-          token: ${{ secrets.token }}
+          token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
       - name: "Checkout stdlib"
         uses: actions/checkout@v2
@@ -80,7 +80,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyanodontests"
-          token: ${{ secrets.token }}
+          token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
       - name: "Checkout stdlib"
         uses: actions/checkout@v2
