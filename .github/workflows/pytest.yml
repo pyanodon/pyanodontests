@@ -18,13 +18,9 @@ on:
         description: "Ref/sha to use for pyanodontest"
         required: false
         default: "v1"
-    secrets:
-      token:
-        description: "Token for pyanodontestuser"
-        required: true
 
 env:
-  GITHUB_TOKEN: ${{ secrets.token }}
+  GITHUB_TOKEN: ${{ secrets.TESTUSER_TOKEN }}
   EVENT_REPOSITORY: ${{ inputs.repository }}
   EVENT_REF: ${{ inputs.ref }}
 
@@ -39,7 +35,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: "pyanodon/pyanodontests"
-          token: ${{ secrets.token }}
+          token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
       - id: set-matrix
         run: ./getrefs.sh
@@ -67,7 +63,7 @@ jobs:
         uses: ShadowGlass0/multi-checkout@v2
         with:
           repositories: ${{ toJSON(matrix.mods) }}
-          token: ${{ secrets.token }}
+          token: ${{ secrets.TESTUSER_TOKEN }}
       - name: "Move mods"
         run: ./movemods.sh
       - name: "TEST: Load Factorio"
@@ -96,7 +92,7 @@ jobs:
         uses: ShadowGlass0/multi-checkout@v2
         with:
           repositories: ${{ toJSON(matrix.mods) }}
-          token: ${{ secrets.token }}
+          token: ${{ secrets.TESTUSER_TOKEN }}
       - name: "Move mods"
         run: ./movemods.sh
       - name: "Prepare test"
@@ -114,5 +110,5 @@ jobs:
       - name: Notify
         uses: nobrayner/discord-webhook@v1
         with:
-          github-token: ${{ secrets.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}

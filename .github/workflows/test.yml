@@ -10,8 +10,7 @@ jobs:
     uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@main
     with:
       test_ref: main
-    secrets:
-      token: ${{ secrets.TESTUSER_TOKEN }}
+    secrets: inherit
   test2:
     name: Test PyAl
     uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@main
@@ -19,5 +18,4 @@ jobs:
       repository: "pyanodon/pyalienlife"
       ref: "master"
       test_ref: main
-    secrets:
-      token: ${{ secrets.TESTUSER_TOKEN }}
+    secrets: inherit
