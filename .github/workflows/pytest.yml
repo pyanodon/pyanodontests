@@ -105,4 +105,14 @@ jobs:
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
       - name: "Test Results"
         run: ./tests/techtree/post-process.sh
-
+  notify:
+    name: Discord Notification
+    runs-on: ubuntu-latest
+    needs: [load_test, techtree_test]
+    if: ${{ failure() || github.event_name == 'schedule' }}
+    steps:
+      - name: Notify
+        uses: nobrayner/discord-webhook@v1
+        with:
+          github-token: ${{ secrets.token }}
+          discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
