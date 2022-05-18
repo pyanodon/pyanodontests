@@ -101,26 +101,25 @@ jobs:
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
       - name: "Test Results"
         run: ./tests/techtree/post-process.sh
-  notify:
-    name: Discord Notification
+  notify_load:
+    name: Notification for load test
+    runs-on: ubuntu-latest
+    needs: load_test
+    if: ${{ needs.load_test.result ~= 'success' }}
+    steps:
+      - uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ needs.load_test.result }}
+          title: Crash test
+  notify_techtree:
+    name: Notification for techtree test
     runs-on: ubuntu-latest
     needs: [load_test, techtree_test]
-    if: ${{ always() }}
+    if: ${{ needs.load_test.result == 'success' }}
     steps:
-      - id: test_status
-        uses: lwhiteley/dependent-jobs-result-check@v1
-        with:
-          statuses: failure
-          dependencies: ${{ toJSON(needs) }}
-      - name: Notify failure
-        if: ${{ fromJSON(steps.test_status.outputs.found) }}
-        uses: sarisia/actions-status-discord@v1
+      - uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          status: failure
-      - name: Notify success
-        if: ${{ ! fromJSON(steps.test_status.outputs.found) }}
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          status: success
+          status: ${{ needs.techtree_test.result }}
+          title: Tech-tree test
