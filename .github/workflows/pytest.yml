@@ -113,13 +113,13 @@ jobs:
           statuses: failure
           dependencies: ${{ toJSON(needs) }}
       - name: Notify failure
-        if: fromJSON(steps.test_status.outputs.found)
+        if: ${{ fromJSON(steps.test_status.outputs.found) }}
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: failure
       - name: Notify success
-        if: ! fromJSON(steps.test_status.outputs.found)
+        if: ${{ ! fromJSON(steps.test_status.outputs.found) }}
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
