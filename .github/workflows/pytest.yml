@@ -108,8 +108,6 @@ jobs:
     if: ${{ always() }}
     steps:
       - name: Notify
-        uses: nobrayner/discord-webhook@v1
+        uses: sarisia/actions-status-discord@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          include-details: false
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
