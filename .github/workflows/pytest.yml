@@ -107,7 +107,20 @@ jobs:
     needs: [load_test, techtree_test]
     if: ${{ always() }}
     steps:
-      - name: Notify
+      - id: test_status
+        uses: lwhiteley/dependent-jobs-result-check@v1
+        with:
+          statuses: failure
+          dependencies: ${{ toJSON(needs) }}
+      - name: Notify failure
+        if: fromJSON(steps.test_status.outputs.found)
         uses: sarisia/actions-status-discord@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: failure
+      - name: Notify success
+        if: ! fromJSON(steps.test_status.outputs.found)
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: success
