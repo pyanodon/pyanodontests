@@ -16,6 +16,25 @@ local starting_entities = {'crash-site-assembling-machine-1-repaired', 'crash-si
 local added_recipes = {}
 local custom_recipes = {}
 local ignored_techs = {'placeholder'}
+local entity_script_unlocks = {}
+
+entity_script_unlocks["bitumen-seep-mk01"] = { "oil-derrick-mk01", "oil-mk01" }
+entity_script_unlocks["bitumen-seep-mk02"] = { "oil-derrick-mk02", "oil-mk02" }
+entity_script_unlocks["bitumen-seep-mk03"] = { "oil-derrick-mk03", "oil-mk03" }
+entity_script_unlocks["bitumen-seep-mk04"] = { "oil-derrick-mk04", "oil-mk04" }
+entity_script_unlocks["natural-gas-seep-mk01"] = { "natural-gas-extractor-mk01", "natural-gas-mk01" }
+entity_script_unlocks["natural-gas-seep-mk02"] = { "natural-gas-extractor-mk01", "natural-gas-mk01" }
+entity_script_unlocks["natural-gas-seep-mk03"] = { "natural-gas-extractor-mk01", "natural-gas-mk01" }
+entity_script_unlocks["natural-gas-seep-mk04"] = { "natural-gas-extractor-mk01", "natural-gas-mk01" }
+entity_script_unlocks["tar-seep-mk01"] = { "tar-extractor-mk01", "tar-patch" }
+entity_script_unlocks["tar-seep-mk02"] = { "tar-extractor-mk02", "tar-patch" }
+entity_script_unlocks["tar-seep-mk03"] = { "tar-extractor-mk03", "tar-patch" }
+entity_script_unlocks["tar-seep-mk04"] = { "tar-extractor-mk04", "tar-patch" }
+entity_script_unlocks["numal-reef-mk01"] = { "numal-reef-mk01" }
+entity_script_unlocks["numal-reef-mk02"] = { "numal-reef-mk02" }
+entity_script_unlocks["numal-reef-mk03"] = { "numal-reef-mk03" }
+entity_script_unlocks["numal-reef-mk04"] = { "numal-reef-mk04" }
+
 
 function pytest.start_log(msg)
 	game.write_file('tech_tree_log.txt', msg .. '\n')
@@ -354,6 +373,10 @@ function pytest.add_item(tech, item_name, source, no_log)
 
 		if item.place_result then
 			pytest.add_entity(tech, item.place_result.name)
+		end
+
+		for _, entity_name in pairs(entity_script_unlocks[item_name] or {}) do
+			pytest.add_entity(tech, entity_name)
 		end
 
 		if item.fuel_category and (item.fuel_value or 0) > 0 then
