@@ -32,7 +32,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
@@ -48,13 +48,13 @@ jobs:
       matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
       - name: "Checkout stdlib"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: "Afforess/Factorio-Stdlib"
           ref: v1.4.6
@@ -77,13 +77,13 @@ jobs:
       matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
       - name: "Checkout stdlib"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: "Afforess/Factorio-Stdlib"
           ref: v1.4.6
@@ -108,7 +108,7 @@ jobs:
     if: ${{ always() }}
     steps:
       - id: test_status
-        uses: lwhiteley/dependent-jobs-result-check@v1
+        uses: lwhiteley/dependent-jobs-result-check@v2
         with:
           statuses: failure
           dependencies: ${{ toJSON(needs) }}
