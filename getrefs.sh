@@ -29,5 +29,4 @@ echo -n "matrix="
     jq -s '.' 
 } | 
 jq -s '.[1] as $modrefs | .[0][].mods |= reduce $modrefs[] as $refs (. ; map_values(if .==$refs.name then $refs.repository + "@" + $refs.ref else . end))' |
-jq -c '{include: .[0]}'
->> $GITHUB_OUTPUT
+jq -c '{include: .[0]}' >> $GITHUB_OUTPUT
