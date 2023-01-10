@@ -3,7 +3,7 @@ set -euo pipefail
 
 if [[ -n ${EVENT_REPOSITORY} ]]; then mod_name=$(jq '.[] | if .repository==env.EVENT_REPOSITORY then .name else empty end' mods.json); fi
 
-echo -n "::set-output name=matrix::"
+echo -n "matrix="
 { 
     if [ ${mod_name:+1} ]; then
         jq ".include[] | if .mods | any(.==$mod_name) then . else empty end" mod-sets.json | jq -sc '.'
@@ -30,3 +30,4 @@ echo -n "::set-output name=matrix::"
 } | 
 jq -s '.[1] as $modrefs | .[0][].mods |= reduce $modrefs[] as $refs (. ; map_values(if .==$refs.name then $refs.repository + "@" + $refs.ref else . end))' |
 jq -c '{include: .[0]}'
+>> $GITHUB_OUTPUT
