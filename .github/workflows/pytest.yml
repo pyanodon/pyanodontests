@@ -71,7 +71,7 @@ jobs:
       - name: "TEST: Load Factorio"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
       - name: "Test Results"
-        run: ./tests/techtree/post-process.sh
+        run: ./tests/crashtest/post-process.sh
   techtree_test:
     name: ${{ format('TechTree {0}', matrix.name) }}
     needs: [genereate_matrix, load_test]
