@@ -66,8 +66,12 @@ jobs:
           token: ${{ secrets.TESTUSER_TOKEN }}
       - name: "Move mods"
         run: ./movemods.sh
+      - name: "Prepare test"
+        run: ./tests/crashtest/pre-process.sh
       - name: "TEST: Load Factorio"
         uses: ShadowGlass0/factorio-docker-for-github-actions@main
+      - name: "Test Results"
+        run: ./tests/techtree/post-process.sh
   techtree_test:
     name: ${{ format('TechTree {0}', matrix.name) }}
     needs: [genereate_matrix, load_test]
