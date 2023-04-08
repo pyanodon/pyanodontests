@@ -64,6 +64,7 @@ function pytest.tech(tech)
 		t.required_science_packs = {}
 		t.unlocked_techs = {}
 		t.unlocked_lab_slots = {}
+		t.unlocked_equipment = {}
 		tech_tab[tech] = t
 	end
 	return tech_tab[tech]
@@ -362,6 +363,24 @@ function pytest.add_entity(tech, entity_name)
 end
 
 
+function pytest.add_equipment(tech, equipment_name)
+	local equipment = game.equipment_prototypes[equipment_name]
+
+	if not tech.unlocked_equipment[equipment_name] then
+		pytest.log('  - Unlocked equipment: ' .. equipment_name)
+		tech.unlocked_equipment[equipment_name] = equipment
+
+		if equipment.burner_prototype and not table.is_empty(equipment.burner_prototype.fuel_categories or {}) then
+			for _, i in pairs(tech.unlocked_items) do
+				if i.fuel_category and equipment.burner_prototype.fuel_categories[i.fuel_category] then
+					pytest.add_burnt_result(tech, i)
+				end
+			end
+		end
+	end
+end
+
+
 function pytest.add_item(tech, item_name, source, no_log)
 	local item = game.item_prototypes[item_name]
 
@@ -373,6 +392,10 @@ function pytest.add_item(tech, item_name, source, no_log)
 
 		if item.place_result then
 			pytest.add_entity(tech, item.place_result.name)
+		end
+
+		if item.place_as_equipment_result then
+			pytest.add_equipment(tech, item.place_as_equipment_result.name)
 		end
 
 		for _, entity_name in pairs(entity_script_unlocks[item_name] or {}) do
@@ -402,6 +425,14 @@ function pytest.add_burnt_result(tech, item)
 		local used = false
 
 		for _, e in pairs(tech.unlocked_entities) do
+			if e.burner_prototype and e.burner_prototype.fuel_categories[item.fuel_category]
+			and e.burner_prototype.fuel_inventory_size > 0 and e.burner_prototype.burnt_inventory_size > 0 then
+				used = true
+				break
+			end
+		end
+
+		for _, e in pairs(tech.unlocked_equipment) do
 			if e.burner_prototype and e.burner_prototype.fuel_categories[item.fuel_category]
 			and e.burner_prototype.fuel_inventory_size > 0 and e.burner_prototype.burnt_inventory_size > 0 then
 				used = true
@@ -598,8 +629,13 @@ function pytest.process_recipe(tech, recipe, write_errors)
 	if result then
 		for _, p in pairs(recipe.products or {}) do
 			if ((p.amount or 0) > 0 or (p.amount_max or 0) > 0) and (not p.probability or p.probability > 0)
-			and	p.type == 'item' and game.item_prototypes[p.name].place_result then
-				result = pytest.verify_entity(tech, game.item_prototypes[p.name].place_result.name, write_errors) and result
+			and	p.type == 'item' then
+				if game.item_prototypes[p.name].place_result then
+					result = pytest.verify_entity(tech, game.item_prototypes[p.name].place_result.name, write_errors) and result
+				end
+				if game.item_prototypes[p.name].place_as_equipment_result then
+					result = pytest.verify_equipment(tech, game.item_prototypes[p.name].place_as_equipment_result.name, write_errors) and result
+				end
 			end
 		end
 	end
@@ -611,6 +647,31 @@ function pytest.process_recipe(tech, recipe, write_errors)
 	end
 
 	return result
+end
+
+
+function pytest.verify_equipment(tech, name, write_errors)
+	local equipment = game.equipment_prototypes[name]
+
+	if equipment.burner_prototype and equipment.energy_consumption > 0 then
+		local found = false
+		local str = ''
+		for fc, i in pairs(equipment.burner_prototype.fuel_categories or {}) do
+			if tech.unlocked_fuel_categories[fc] then
+				found = true
+			end
+			str = (str ~= '' and str .. ', ' or '') .. fc
+		end
+
+		if not found then
+			if write_errors then
+				pytest.log('ERROR: Missing fuel category for equipment ' .. name .. ': ' .. str)
+			end
+			return false
+		end
+	end
+
+	return true
 end
 
 
@@ -754,6 +815,7 @@ function pytest.merge_parents(tech)
 		tech.unlocked_recipes = table.merge(tech.unlocked_recipes, p.unlocked_recipes)
 		tech.unlocked_techs = table.merge(tech.unlocked_techs, p.unlocked_techs)
 		tech.unlocked_lab_slots = table.merge(tech.unlocked_lab_slots, p.unlocked_lab_slots)
+		tech.unlocked_equipment = table.merge(tech.unlocked_equipment, p.unlocked_equipment)
 
 		for c, tab in pairs(p.unlocked_crafting) do
 			for _, craft in pairs(tab) do
