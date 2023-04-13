@@ -44,9 +44,8 @@ jobs:
       - id: set-matrix
         run: |
           echo 'matrix<<EOF' >> $GITHUB_OUTPUT
-          echo "matrix=$(python getrefs.py)" >> $GITHUB_OUTPUT
+          echo "$(python getrefs.py)" >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
   load_test:
     name: ${{ format('CrashTest {0}', matrix.name) }}
     needs: genereate_matrix
