@@ -27,7 +27,7 @@ def run_getrefs_py(event_repository=None, event_ref=None):
 def compare_outputs(sh_output, py_output):
     return sh_output == py_output
 
-def run_test(event_repository=None, event_ref=None):
+def run_test(event_repository="", event_ref=""):
     print(f"Running test with EVENT_REPOSITORY={event_repository} and EVENT_REF={event_ref}")
     sh_output = run_getrefs_sh(event_repository, event_ref)
     py_output = run_getrefs_py(event_repository, event_ref)
