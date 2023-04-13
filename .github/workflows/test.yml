@@ -5,6 +5,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  test0:
+    name: Tmp test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Run test
+        run: python test_getrefs.py
   test1:
     name: Test Full
     uses: pyanodon/pyanodontests/.github/workflows/pytest.yml@main
