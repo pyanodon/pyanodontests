@@ -38,14 +38,14 @@ jobs:
           token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
       - id: set-matrix
-        run: ./getrefs.sh
+        run: python getrefs.py
   load_test:
     name: ${{ format('CrashTest {0}', matrix.name) }}
     needs: genereate_matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
+      matrix: ${{fromJson(github.workspace + '/matrix.json')}}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v3
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
+      matrix: ${{fromJson(github.workspace + '/matrix.json')}}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v3
