@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(github.workspace + '/matrix.json')}}
+      matrix: ${{fromJson(format('{0}/matrix.json', github.workspace))}}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v3
@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(github.workspace + '/matrix.json')}}
+      matrix: ${{fromJson(format('{0}/matrix.json', github.workspace))}}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v3
