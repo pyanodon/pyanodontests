@@ -37,6 +37,10 @@ jobs:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
+      - name: Install PyGithub
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pygithub
       - id: set-matrix
         run: python getrefs.py
   load_test:
@@ -45,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(format('{0}/matrix.json', github.workspace))}}
+      matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v3
@@ -78,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(format('{0}/matrix.json', github.workspace))}}
+      matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v3

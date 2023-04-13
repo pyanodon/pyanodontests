@@ -1,47 +1,62 @@
 import os
 import json
-import subprocess
+import sys
+from github import Github
 
 def main():
-    event_repository = os.getenv("EVENT_REPOSITORY", "")
-    event_ref = os.getenv("EVENT_REF", "")
+    # Set up Github access with an access token
+    access_token = os.environ.get("GITHUB_TOKEN", "")
+    if not access_token:
+        print("Error: GITHUB_TOKEN environment variable is missing.")
+        sys.exit(1)
 
-    with open("mods.json", "r") as mods_file:
-        mods_data = json.load(mods_file)
-    
-    with open("mod-sets.json", "r") as mod_sets_file:
-        mod_sets_data = json.load(mod_sets_file)
+    github = Github(access_token)
 
-    mod_name = ""
+    event_repository = os.environ.get("EVENT_REPOSITORY", "")
+    event_ref = os.environ.get("EVENT_REF", "")
+
+    with open("mods.json", "r") as f:
+        mods = json.load(f)
+
+    with open("mod-sets.json", "r") as f:
+        mod_sets = json.load(f)
+
+    mod_name = None
     if event_repository:
-        mod_name = next((mod["name"] for mod in mods_data if mod["repository"] == event_repository), "")
+        mod_name = next((mod["name"] for mod in mods if mod["repository"] == event_repository), None)
 
     if mod_name:
-        include_mod_sets = [ms for ms in mod_sets_data["include"] if mod_name in ms["mods"]]
+        include_mod_sets = [ms for ms in mod_sets["include"] if mod_name in ms["mods"]]
     else:
-        include_mod_sets = mod_sets_data["include"]
+        include_mod_sets = mod_sets["include"]
 
     mod_refs = []
-    for mod in mods_data:
-        repo = mod["repository"]
-        if repo == event_repository:
+
+    for mod in mods:
+        repo = github.get_repo(mod["repository"])
+
+        if mod["repository"] == event_repository:
             ref = event_ref
         else:
-            url = mod["url"]
-            branch_output = subprocess.getoutput(f"git remote show {url}")
-            branch = branch_output.split("HEAD branch: ")[-1].split("\n")[0]
-            ref_output = subprocess.getoutput(f"git ls-remote -h {url} {branch}")
-            ref = ref_output.split()[0]
+            branch = repo.get_branch(repo.default_branch)
+            ref = branch.commit.sha
 
-        mod_refs.append({"name": mod["name"], "repository": repo, "ref": ref})
+        mod_refs.append({"name": mod["name"], "repository": mod["repository"], "ref": ref})
+
+    result = []
 
     for mod_set in include_mod_sets:
-        mod_set["mods"] = [next((f"{mod_ref['repository']}@{mod_ref['ref']}" for mod_ref in mod_refs if mod_ref["name"] == mod), mod) for mod in mod_set["mods"]]
+        new_mod_set = {"name": mod_set["name"], "mods": []}
+        for mod_name in mod_set["mods"]:
+            mod_ref = next((mr for mr in mod_refs if mr["name"] == mod_name), None)
+            if mod_ref:
+                new_mod_set["mods"].append(f"{mod_ref['repository']}@{mod_ref['ref']}")
+            else:
+                new_mod_set["mods"].append(mod_name)
+        result.append(new_mod_set)
 
-    matrix = {"include": include_mod_sets}
-
-    with open("matrix.json", "w") as matrix_file:
-        json.dump(matrix, matrix_file, indent=2)
+    print(json.dumps({"include": result}, indent=2))
 
 if __name__ == "__main__":
     main()
+
