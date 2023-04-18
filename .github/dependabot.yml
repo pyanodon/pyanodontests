@@ -7,3 +7,5 @@ updates:
       time: "11:00"
       timezone: "UTC"
   open-pull-requests-limit: 99
+  pull-request-branch-name:
+    separator: "-"
