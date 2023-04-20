@@ -292,13 +292,25 @@ function pytest.add_entity(tech, entity_name)
 
 			local input = {}
 			local output = {}
+			local has_output = false
+			local io_fb
 
 			for _, fb in pairs(entity.fluidbox_prototypes) do
-				if (fb.production_type == 'input' or fb.production_type == 'input-output') and fb.filter then
+				if (fb.production_type == 'input' or fb.production_type == 'input-output') and fb.filter and #fb.pipe_connections > 0 then
 					input = { type = 'fluid', name = fb.filter.name, minimum_temperature = fb.minimum_temperature, maximum_temperature = fb.maximum_temperature }
-				elseif fb.production_type == 'output' and fb.filter then
+				elseif fb.production_type == 'output' and fb.filter and #fb.pipe_connections > 0 then
 					output = { type = 'fluid', name = fb.filter.name, temperature = entity.target_temperature }
+					has_output = true
 				end
+
+				if fb.production_type == 'input-output' then
+					io_fb = fb
+				end
+			end
+
+			-- Old style boiler
+			if not has_output then
+				output = { type = 'fluid', name = io_fb.filter.name, temperature = entity.target_temperature }
 			end
 
 			local amount = entity.max_energy_usage / (entity.target_temperature - game.fluid_prototypes[input.name].default_temperature) / game.fluid_prototypes[input.name].heat_capacity * 60
