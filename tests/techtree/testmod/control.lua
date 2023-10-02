@@ -13,11 +13,13 @@ local crafting_launch = '__launch__'
 local tech_tab = {}
 local ignored_crafting = {'py-venting', 'py-runoff', 'py-incineration', 'blackhole-energy', 'compost', crafting_launch, crafting_boiler, crafting_reactor, crafting_generator, 'drilling-fluid'}
 local starting_entities = {'crash-site-assembling-machine-1-repaired', 'crash-site-lab-repaired'}
+local ignored_entities = {'bioport','requester-tank','provider-tank'}
+local ignored_recipes = { 'bioport-hidden-recipe' }
 local added_recipes = {}
 local custom_recipes = {}
 local ignored_techs = {'placeholder'}
-local entity_script_unlocks = {}
 
+local entity_script_unlocks = {}
 entity_script_unlocks["bitumen-seep-mk01"] = { "oil-derrick-mk01", "oil-mk01" }
 entity_script_unlocks["bitumen-seep-mk02"] = { "oil-derrick-mk02", "oil-mk02" }
 entity_script_unlocks["bitumen-seep-mk03"] = { "oil-derrick-mk03", "oil-mk03" }
@@ -34,6 +36,9 @@ entity_script_unlocks["numal-reef-mk01"] = { "numal-reef-mk01" }
 entity_script_unlocks["numal-reef-mk02"] = { "numal-reef-mk02" }
 entity_script_unlocks["numal-reef-mk03"] = { "numal-reef-mk03" }
 entity_script_unlocks["numal-reef-mk04"] = { "numal-reef-mk04" }
+
+local item_script_unlocks = {}
+item_script_unlocks["bioport"] = { "guano" }
 
 
 function pytest.start_log(msg)
@@ -208,6 +213,9 @@ end
 
 function pytest.verify_entity(tech, entity_name, write_errors)
 	local entity = game.entity_prototypes[entity_name]
+	if table.any(ignored_entities, function (e) return e == entity_name end) then 
+		return true
+	end
 
 	if entity.burner_prototype and (entity.energy_usage or entity.max_energy_usage) > 0 then
 		local found = false
@@ -279,6 +287,10 @@ function pytest.add_entity(tech, entity_name)
 
 		if entity.fixed_recipe and not tech.unlocked_recipes[entity.fixed_recipe] then
 			added_recipes[entity.fixed_recipe] = true
+		end
+
+		for _, item_name in pairs(item_script_unlocks[entity_name] or {}) do
+			pytest.add_item(tech, item_name)
 		end
 
 		if entity.type == 'offshore-pump' then
@@ -545,6 +557,10 @@ end
 
 
 function pytest.process_recipe(tech, recipe, write_errors)
+	if table.any(ignored_recipes, function (r) return r == recipe.name end) then
+		return true
+	end
+
 	local result = true
 	local ingredient_count = 0
 	local fluidboxes_in = 0
