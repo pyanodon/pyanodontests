@@ -119,7 +119,7 @@ jobs:
     if: ${{ always() }}
     steps:
       - id: test_status
-        uses: lwhiteley/dependent-jobs-result-check@v2.0.1
+        uses: lwhiteley/dependent-jobs-result-check@v3.0.0
         with:
           statuses: failure
           dependencies: ${{ toJSON(needs) }}
