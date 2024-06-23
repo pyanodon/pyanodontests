@@ -14,6 +14,7 @@ def main():
 
     event_repository = os.environ.get("EVENT_REPOSITORY", "")
     event_ref = os.environ.get("EVENT_REF", "")
+    event_branch = os.environ.get("EVENT_BRANCH", "")
 
     with open("mods.json", "r") as f:
         mods = json.load(f)
@@ -38,7 +39,10 @@ def main():
         if mod["repository"] == event_repository:
             ref = event_ref
         else:
-            branch = repo.get_branch(repo.default_branch)
+            try:
+                branch = repo.get_branch(event_branch)
+            except github.UnknownObjectException:
+                branch = repo.get_branch(repo.default_branch)
             ref = branch.commit.sha
 
         mod_refs.append({"name": mod["name"], "repository": mod["repository"], "ref": ref})

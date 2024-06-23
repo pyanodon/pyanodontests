@@ -18,11 +18,17 @@ on:
         description: "Ref/sha to use for pyanodontest"
         required: false
         default: "v1"
+      test_branch:
+        type: string
+        description: "Branch to use for pyanodontest"
+        required: false
+        default: ""
 
 env:
   GITHUB_TOKEN: ${{ secrets.TESTUSER_TOKEN }}
   EVENT_REPOSITORY: ${{ inputs.repository }}
   EVENT_REF: ${{ inputs.ref }}
+  EVENT_BRANCH: ${{ inputs.test_branch }}
 
 jobs:
   genereate_matrix:
