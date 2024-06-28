@@ -129,8 +129,6 @@ jobs:
         with:
           statuses: failure
           dependencies: ${{ toJSON(needs) }}
-      - name: Debug Output
-        run: echo "Running from branch ${{(github.head_ref || github.ref_name)}}"
       - name: Notify failure
         if: ${{ fromJSON(steps.test_status.outputs.found) }}
         uses: sarisia/actions-status-discord@v1
