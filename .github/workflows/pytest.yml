@@ -141,3 +141,10 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: success
+      - name: Notify public commit
+        if: ${{ (github.head_ref || github.ref_name) == 'frozen' }}
+        uses: Sniddl/discord-commits@v1.6
+        with:
+          webhook: ${{ secrets.PUBLIC_DISCORD_WEBHOOK }}
+          template: "simple-link"
+          include-extras: true
