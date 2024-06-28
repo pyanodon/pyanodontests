@@ -129,6 +129,8 @@ jobs:
         with:
           statuses: failure
           dependencies: ${{ toJSON(needs) }}
+      - name: Debug Output
+        run: echo "Running from branch ${{(github.head_ref || github.ref_name)}}"
       - name: Notify failure
         if: ${{ fromJSON(steps.test_status.outputs.found) }}
         uses: sarisia/actions-status-discord@v1
@@ -142,7 +144,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: success
       - name: Notify public commit
-        if: ${{ (github.head_ref || github.ref_name) == 'refs/heads/Frozen' }}
+        if: ${{ (github.head_ref || github.ref_name) == 'Frozen' }}
         uses: Sniddl/discord-commits@v1.6
         with:
           webhook: ${{ secrets.PUBLIC_DISCORD_WEBHOOK }}
