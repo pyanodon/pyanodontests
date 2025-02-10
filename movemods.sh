@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-cp './mod-list.json' ./factorio/mods/
+cp './mod-list.json' './factorio/mods/mod-list.json'
 jq -c '.[]' mods.json |
 while read -r i; do
     mod_repo=$(echo "$i" | jq -cr '.repository')
