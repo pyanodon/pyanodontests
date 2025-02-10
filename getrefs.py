@@ -1,7 +1,7 @@
 import os
 import json
 import sys
-from github import Github
+from github import Github, GithubException
 
 def main():
     # Set up Github access with an access token
@@ -41,7 +41,7 @@ def main():
         else:
             try:
                 branch = repo.get_branch(event_branch)
-            except github.GithubException:
+            except GithubException:
                 branch = repo.get_branch(repo.default_branch)
             ref = branch.commit.sha
 
