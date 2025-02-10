@@ -66,12 +66,6 @@ jobs:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
-      - name: "Checkout stdlib"
-        uses: actions/checkout@v4
-        with:
-          repository: "Afforess/Factorio-Stdlib"
-          ref: v1.4.6
-          path: "factorio/mods/stdlib"
       - name: "Checkout mods"
         uses: ShadowGlass0/multi-checkout@v2
         with:
@@ -99,12 +93,6 @@ jobs:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
           ref: ${{ inputs.test_ref }}
-      - name: "Checkout stdlib"
-        uses: actions/checkout@v4
-        with:
-          repository: "Afforess/Factorio-Stdlib"
-          ref: v1.4.6
-          path: "factorio/mods/stdlib"
       - name: "Checkout mods"
         uses: ShadowGlass0/multi-checkout@v2
         with:

@@ -15,6 +15,11 @@
         "url": "https://github.com/pyanodon/pyindustry"
     },
     {
+        "name": "pyindustrygraphics",
+        "repository": "pyanodon/pyindustrygraphics",
+        "url": "https://github.com/pyanodon/pyindustrygraphics"
+    },
+    {
         "name": "pyfusionenergy",
         "repository": "pyanodon/pyfusionenergy",
         "url": "https://github.com/pyanodon/pyfusionenergy"
