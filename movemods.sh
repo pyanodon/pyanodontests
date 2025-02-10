@@ -7,7 +7,7 @@ while read -r i; do
     mod_name=$(echo "$i" | jq -cr '.name')
 
     if [[ -d ./"$mod_repo" ]]; then
-        mkdir ./factorio/mods/"$mod_name"
+        mkdir -p ./factorio/mods/"$mod_name"
         mv ./"$mod_repo"/* ./factorio/mods/"$mod_name"
         rm -r ./"$mod_repo"
     fi
