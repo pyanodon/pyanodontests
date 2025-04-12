@@ -16,6 +16,7 @@
         "? pypetroleumhandling", 
         "? pyalienlife", 
         "? pyalternativeenergy",
-        "pypostprocessing"
+        "pypostprocessing",
+        "stdlib"
     ]
 }
