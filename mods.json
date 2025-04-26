@@ -93,5 +93,15 @@
         "name": "pypostprocessing",
         "repository": "pyanodon/pypostprocessing",
         "url": "https://github.com/pyanodon/pypostprocessing"
+    },
+    {
+        "name": "dependency-graph-lib",
+        "repository": "pyanodon/dependency-graph-lib",
+        "url": "https://github.com/pyanodon/dependency-graph-lib"
+    },
+    {
+        "name": "autotech",
+        "repository": "pyanodon/autotech",
+        "url": "https://github.com/pyanodon/autotech"
     }
 ]

@@ -1,6 +1,19 @@
 {
     "include": [
         {
+            "name": "Dependency Graph",
+            "mods": [
+                "dependency-graph-lib"
+            ]
+        },
+        {
+            "name": "Autotech (vanilla)",
+            "mods": [
+                "dependency-graph-lib",
+                "autotech"
+            ]
+        },
+        {
             "name": "PyCoal",
             "mods": [
                 "pycoalprocessing", 
