@@ -34,7 +34,11 @@ def main():
     mod_refs = []
 
     for mod in mods:
-        repo = github.get_repo(mod["repository"])
+        try:
+            repo = github.get_repo(mod["repository"])
+        except GithubException as e:
+            print(f"Error accessing repository for {mod["name"]} at {mod['repository']}")
+            raise e
 
         if mod["repository"] == event_repository:
             ref = event_ref
