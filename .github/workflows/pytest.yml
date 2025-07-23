@@ -31,7 +31,7 @@ env:
   EVENT_BRANCH: ${{ inputs.test_branch }}
 
 jobs:
-  genereate_matrix:
+  generate_matrix:
     name: "Generate strategy matrix"
     runs-on: ubuntu-latest
     outputs:
@@ -54,11 +54,11 @@ jobs:
           echo 'EOF' >> $GITHUB_OUTPUT
   load_test:
     name: ${{ format('CrashTest {0}', matrix.name) }}
-    needs: genereate_matrix
+    needs: generate_matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.generate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
         uses: actions/checkout@v4
@@ -81,11 +81,11 @@ jobs:
         run: ./tests/crashtest/post-process.sh
   # techtree_test:
   #   name: ${{ format('TechTree {0}', matrix.name) }}
-  #   needs: [genereate_matrix, load_test]
+  #   needs: [generate_matrix, load_test]
   #   runs-on: ubuntu-latest
   #   strategy:
   #     fail-fast: false
-  #     matrix: ${{ fromJSON(needs.genereate_matrix.outputs.matrix) }}
+  #     matrix: ${{ fromJSON(needs.generate_matrix.outputs.matrix) }}
   #   steps:
   #     - name: "Checkout pyanodontests"
   #       uses: actions/checkout@v4
