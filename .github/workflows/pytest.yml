@@ -136,4 +136,5 @@ jobs:
         with:
           webhook: ${{ secrets.PUBLIC_DISCORD_WEBHOOK }}
           template: "simple-link"
+          message: "Successful commit to **${{ github.repository }}** [${{ (github.head_ref || github.ref_name) }}]"
           include-extras: false
