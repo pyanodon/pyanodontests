@@ -131,7 +131,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: success
       - name: Notify public commit
-        if: ${{ (github.repository_owner == 'pyanodon') && ((github.head_ref || github.ref_name) == 'master' || (github.head_ref || github.ref_name) == 'main') }}
+        if: ${{ (github.repository_owner == 'pyanodon') && (github.event_name == 'push') }}
         uses: Sniddl/discord-commits@1.7
         with:
           webhook: ${{ secrets.PUBLIC_DISCORD_WEBHOOK }}
