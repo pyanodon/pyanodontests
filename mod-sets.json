@@ -1,6 +1,12 @@
 {
     "include": [
         {
+            "name": "Autotech (vanilla)",
+            "mods": [
+                "autotech"
+            ]
+        },
+        {
             "name": "PyCoal",
             "mods": [
                 "pycoalprocessing", 
