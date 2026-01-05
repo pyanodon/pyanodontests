@@ -1,0 +1,56 @@
+name: Mod Portal Upload
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  portal-upload:
+    name: "Upload to mod portal"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Datestamp
+        run: python ./datestamp.py
+      - name: Check for changes
+        id: run_command
+        run: |
+          git diff --quiet && git diff --cached --quiet
+          echo "HAS_CHANGES=$?" >> "$GITHUB_OUTPUT"
+        continue-on-error: true # nonzero output is an option here, not a terminating error
+      # Nothing to do
+      - name: Note diff status
+        run: echo "exit code 0, code ${{ steps.run_command.outputs.HAS_CHANGES }}"
+      # Commit changelog/json
+      - name: Tag & push
+        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
+        run: |
+          echo "exit code non-0, code ${{ steps.run_command.outputs.HAS_CHANGES }}"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -am "Release version ${{ env.MOD_VERSION }}"
+          git tag v${{ env.MOD_VERSION }}
+          git push origin v${{ env.MOD_VERSION }}
+          git push
+      - name: Zip mod folder
+        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
+        run: git archive --prefix "${{ env.MOD_NAME }}/" -o "./${{ env.MOD_ZIP_PATH }}" "v${{ env.MOD_VERSION }}"
+      - name: Upload artifact
+        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
+        uses: actions/upload-artifact@v6
+        with:
+            name: "${{ env.MOD_NAME }}_${{ env.MOD_VERSION }}"
+            path: ${{ env.MOD_ZIP_PATH }}
+      - name: Upload to portal
+        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
+        uses: mchangrh/factorio-mod-upload@v2
+        with:
+            mod-name: ${{ env.MOD_NAME }}
+        env: 
+          FACTORIO_MODS_TOKEN: ${{ secrets.FACTORIO_UPLOAD_TOKEN }}
+          FILENAME: "./${{ env.MOD_ZIP_PATH }}"
