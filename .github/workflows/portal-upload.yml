@@ -19,13 +19,13 @@ jobs:
         uses: actions/checkout@v5
         with:
           repository: "pyanodon/pyanodontests"
-          path: scripts
+          path: pyanodontests
           sparse-checkout: |
             datestamp.py
       - name: Datestamp
         run: |
-          python scripts/datestamp.py
-          rm -rf scripts
+          python pyanodontests/datestamp.py
+          rm -rf pyanodontests
       - name: Check for changes
         id: run_command
         run: |
