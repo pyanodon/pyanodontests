@@ -1,6 +1,6 @@
 name: Mod Portal Upload
 
-on: workflow_dispatch
+on: workflow_call
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
           repository: ${{ github.repository }}
           ref: ${{ github.head_ref || github.ref_name }}
       - name: Datestamp
-        run: python ./datestamp.py
+        run: python datestamp.py
       - name: Check for changes
         id: run_command
         run: |
