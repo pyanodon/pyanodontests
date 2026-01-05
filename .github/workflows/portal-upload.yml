@@ -10,8 +10,6 @@ jobs:
     name: "Upload to mod portal"
     runs-on: ubuntu-latest
     steps:
-      - name: ls
-        run: ls
       - name: Checkout
         uses: actions/checkout@v5
         with:
