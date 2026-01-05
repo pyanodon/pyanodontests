@@ -16,7 +16,7 @@ jobs:
           repository: ${{ github.repository }}
           ref: ${{ github.head_ref || github.ref_name }}
       - name: Datestamp
-        run: python datestamp.py
+        run: python ${{ github.action_path }}/datestamp.py
       - name: Check for changes
         id: run_command
         run: |
