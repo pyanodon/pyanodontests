@@ -47,16 +47,13 @@ jobs:
           git push origin v${{ env.MOD_VERSION }}
           git push
       - name: Zip mod folder
-        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
         run: git archive --prefix "${{ env.MOD_NAME }}/" -o "./${{ env.MOD_ZIP_PATH }}" "v${{ env.MOD_VERSION }}"
       - name: Upload artifact
-        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
         uses: actions/upload-artifact@v6
         with:
             name: "${{ env.MOD_NAME }}_${{ env.MOD_VERSION }}"
             path: ${{ env.MOD_ZIP_PATH }}
       - name: Upload to portal
-        if: ${{ steps.run_command.outputs.HAS_CHANGES != '0' }}
         uses: mchangrh/factorio-mod-upload@v2
         with:
             mod-name: ${{ env.MOD_NAME }}
