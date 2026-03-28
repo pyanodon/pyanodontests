@@ -49,7 +49,7 @@ jobs:
       - name: Zip mod folder
         run: git archive --prefix "${{ env.MOD_NAME }}/" -o "./${{ env.MOD_ZIP_PATH }}" "v${{ env.MOD_VERSION }}"
       - name: Upload artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
             name: "${{ env.MOD_NAME }}_${{ env.MOD_VERSION }}"
             path: ${{ env.MOD_ZIP_PATH }}
