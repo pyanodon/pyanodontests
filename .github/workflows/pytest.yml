@@ -38,7 +38,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
@@ -61,7 +61,7 @@ jobs:
       matrix: ${{ fromJSON(needs.generate_matrix.outputs.matrix) }}
     steps:
       - name: "Checkout pyanodontests"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: "pyanodon/pyanodontests"
           token: ${{ secrets.TESTUSER_TOKEN }}
@@ -88,7 +88,7 @@ jobs:
   #     matrix: ${{ fromJSON(needs.generate_matrix.outputs.matrix) }}
   #   steps:
   #     - name: "Checkout pyanodontests"
-  #       uses: actions/checkout@v5
+  #       uses: actions/checkout@v6
   #       with:
   #         repository: "pyanodon/pyanodontests"
   #         token: ${{ secrets.TESTUSER_TOKEN }}
