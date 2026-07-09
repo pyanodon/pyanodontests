@@ -56,7 +56,7 @@ def set_info_version(new_version: tuple[int]):
     content = read_file_content(INFO_PATH)
     info = json.loads(content)
     old_version = info.get('version')
-    write_file_content(INFO_PATH, content.replace(old_version, new_version_str))
+    write_file_content(INFO_PATH, content.replace(old_version, new_version_str, 1))
 
 def set_version_and_date():
     changelog_version = get_changelog_version()
