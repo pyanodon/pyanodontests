@@ -21,6 +21,11 @@
     {
       "name": "space-age",
       "enabled": false
+    },
+
+    {
+      "name": "recycler",
+      "enabled": false
     }
   ]
 }
